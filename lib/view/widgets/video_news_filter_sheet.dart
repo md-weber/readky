@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class VideoNewsFilterSheet extends StatelessWidget {
+  const VideoNewsFilterSheet({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,7 +14,12 @@ class VideoNewsFilterSheet extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             height: 50,
-            decoration: BoxDecoration(color: Colors.grey[200], border: Border(bottom: BorderSide(color: Colors.grey[350], width: 1))),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              border: Border(
+                bottom: BorderSide(color: Colors.grey[400]!),
+              ),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -21,9 +28,9 @@ class VideoNewsFilterSheet extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     height: 50,
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Reset',
                         style: TextStyle(color: Colors.grey),
@@ -31,12 +38,16 @@ class VideoNewsFilterSheet extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
+                const SizedBox(
                   height: 50,
                   child: Center(
                     child: Text(
                       'Sort by',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'inter'),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'inter',
+                      ),
                     ),
                   ),
                 ),
@@ -45,9 +56,9 @@ class VideoNewsFilterSheet extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     height: 50,
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Cancel',
                         style: TextStyle(color: Colors.grey),
@@ -77,30 +88,51 @@ class VideoNewsFilterSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildFilterOptionTile({@required String title, bool selected = false, Function onTap}) {
+  Widget _buildFilterOptionTile({
+    required String title,
+    bool selected = false,
+    VoidCallback? onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: Colors.grey[300], width: 1))),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.grey[300]!,
+            ),
+          ),
+        ),
         child: ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           selected: selected,
           title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: (selected == true)
-                  ? [
-                      Text(
-                        title,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: (selected == true)
+                ? [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
-                      Icon(Icons.check),
-                    ]
-                  : [
-                      Text(
-                        title,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
+                    ),
+                    const Icon(Icons.check),
+                  ]
+                : [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
-                    ]),
+                    ),
+                  ],
+          ),
         ),
       ),
     );

@@ -4,18 +4,20 @@ import 'package:readky/view/widgets/custom_app_bar.dart';
 import 'package:readky/view/widgets/profile_info_card.dart';
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        leadingIcon: Icon(
+        leadingIcon: const Icon(
           Icons.arrow_back_ios,
           color: Colors.white,
         ),
         onPressedLeading: () {
           Navigator.of(context).pop();
         },
-        title: Text(
+        title: const Text(
           'Profile Info',
           style: TextStyle(
             fontWeight: FontWeight.w400,
@@ -25,16 +27,16 @@ class ProfilePage extends StatelessWidget {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           //  Section 1 = Profile Info
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             width: MediaQuery.of(context).size.width,
             height: 110,
             color: Colors.black,
             alignment: Alignment.topCenter,
-            child: ProfileInfoCard(
+            child: const ProfileInfoCard(
               username: 'Shasy Re',
               subscriptionStatus: 'Basic Account',
             ),
@@ -42,14 +44,17 @@ class ProfilePage extends StatelessWidget {
           // Section 2 - Banner
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Color(0xFFE5E5E5)),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: const Color(0xFFE5E5E5),
+              ),
               child: Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Text(
                       'Hey, its seems like you \nhavent read any news today.',
                       style: TextStyle(
@@ -63,14 +68,18 @@ class ProfilePage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF252525),
-                      padding: EdgeInsets.only(left: 14, top: 7, bottom: 7, right: 8),
-                      textStyle: TextStyle(
+                      padding: const EdgeInsets.only(
+                        left: 14,
+                        top: 7,
+                        bottom: 7,
+                        right: 8,
+                      ),
+                      textStyle: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 10,
                       ),
                     ),
-                    child: Row(
+                    child: const Row(
                       children: [
                         Text('Read Now'),
                         SizedBox(width: 6),
@@ -78,10 +87,10 @@ class ProfilePage extends StatelessWidget {
                           Icons.arrow_forward,
                           color: Colors.white,
                           size: 14,
-                        )
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -90,7 +99,6 @@ class ProfilePage extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             color: Colors.white,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Menu title - Account Settings
@@ -101,7 +109,8 @@ class ProfilePage extends StatelessWidget {
                   desciption: 'Edit and view profile info.',
                   icon: SvgPicture.asset(
                     'assets/icons/Profile.svg',
-                    color: Colors.black,
+                    colorFilter:
+                        const ColorFilter.mode(Colors.black, BlendMode.srcIn),
                   ),
                 ),
                 _buildMenuTile(
@@ -110,7 +119,8 @@ class ProfilePage extends StatelessWidget {
                   desciption: 'Customize your subscription.',
                   icon: SvgPicture.asset(
                     'assets/icons/Ticket Star.svg',
-                    color: Colors.black,
+                    colorFilter:
+                        const ColorFilter.mode(Colors.black, BlendMode.srcIn),
                   ),
                 ),
                 // Menu title - Account Settings
@@ -121,7 +131,8 @@ class ProfilePage extends StatelessWidget {
                   desciption: 'Edit and view profile info.',
                   icon: SvgPicture.asset(
                     'assets/icons/Notification.svg',
-                    color: Colors.black,
+                    colorFilter:
+                        const ColorFilter.mode(Colors.black, BlendMode.srcIn),
                   ),
                 ),
                 _buildMenuTile(
@@ -130,7 +141,8 @@ class ProfilePage extends StatelessWidget {
                   desciption: 'Customize your subscription.',
                   icon: SvgPicture.asset(
                     'assets/icons/Time Circle.svg',
-                    color: Colors.black,
+                    colorFilter:
+                        const ColorFilter.mode(Colors.black, BlendMode.srcIn),
                   ),
                 ),
                 _buildMenuTile(
@@ -139,62 +151,79 @@ class ProfilePage extends StatelessWidget {
                   desciption: 'Customize your subscription.',
                   icon: SvgPicture.asset(
                     'assets/icons/Setting.svg',
-                    color: Colors.black,
+                    colorFilter:
+                        const ColorFilter.mode(Colors.black, BlendMode.srcIn),
                   ),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  Container _buildMenuTitle(BuildContext context, {@required String title}) {
+  Container _buildMenuTitle(BuildContext context, {required String title}) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      margin: EdgeInsets.only(bottom: 10, top: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.only(bottom: 10, top: 15),
       child: Text(
         title,
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'inter'),
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          fontFamily: 'inter',
+        ),
       ),
     );
   }
 
-  Widget _buildMenuTile(BuildContext context, {@required String title, @required String desciption, Function onTap, Widget icon}) {
+  Widget _buildMenuTile(
+    BuildContext context, {
+    required String title,
+    required String desciption,
+    GestureTapCallback? onTap,
+    Widget? icon,
+  }) {
     return InkWell(
       onTap: onTap,
       child: Container(
         height: 75,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         color: Colors.white,
         child: Row(
           children: [
             Container(
               width: 45,
               height: 45,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: Color(0xFFE5E5E5)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: const Color(0xFFE5E5E5),
+              ),
               child: Center(child: icon),
             ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       title,
-                      style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                        fontFamily: 'inter',
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Text(
                       desciption,
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                   ],
                 ),
@@ -203,7 +232,7 @@ class ProfilePage extends StatelessWidget {
             Icon(
               Icons.arrow_forward_ios,
               color: Colors.grey[350],
-            )
+            ),
           ],
         ),
       ),

@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 
 class ProfileInfoCard extends StatelessWidget {
+  const ProfileInfoCard({
+    super.key,
+    required this.username,
+    required this.subscriptionStatus,
+  });
   final String username;
-  final String subscriptionStatus;
 
-  ProfileInfoCard({@required this.username, @required this.subscriptionStatus});
+  final String subscriptionStatus;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
       height: 76,
       decoration: BoxDecoration(
-        color: Color(0xFF191919),
+        color: const Color(0xFF191919),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Container(
+      child: SizedBox(
         height: 48,
         width: MediaQuery.of(context).size.width,
         child: Row(
@@ -23,8 +27,11 @@ class ProfileInfoCard extends StatelessWidget {
             Container(
               width: 48,
               height: 48,
-              decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(100)),
-              margin: EdgeInsets.only(right: 20),
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              margin: const EdgeInsets.only(right: 20),
               child: Image.asset('assets/images/pp.png'),
             ),
             Expanded(
@@ -34,7 +41,7 @@ class ProfileInfoCard extends StatelessWidget {
                 children: [
                   Text(
                     username,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'inter',
@@ -42,38 +49,41 @@ class ProfileInfoCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   Text(
                     subscriptionStatus,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
+                      color: Colors.white.withValues(alpha: 0.7),
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                  )
+                  ),
                 ],
               ),
             ),
             ElevatedButton(
               onPressed: () {},
-              child: Text(
+              style: ElevatedButton.styleFrom(
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 14,
+                  horizontal: 16,
+                ),
+              ),
+              child: const Text(
                 'Upgrade',
                 style: TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF252525),
-                  textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
-                  padding: EdgeInsets.symmetric(
-                    vertical: 14,
-                    horizontal: 16,
-                  )),
             ),
           ],
         ),

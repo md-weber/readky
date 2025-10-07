@@ -1,53 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// ignore: must_be_immutable
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
-  TextEditingController searchInputController;
-  Function searchPressed;
-  SearchAppBar({@required this.searchInputController, this.searchPressed});
+  const SearchAppBar({
+    super.key,
+    required this.searchInputController,
+    this.searchPressed,
+  });
+  final TextEditingController searchInputController;
+
+  final VoidCallback? searchPressed;
   @override
   Size get preferredSize => const Size.fromHeight(60);
 
   @override
-  _SearchAppBarState createState() => _SearchAppBarState();
+  State<SearchAppBar> createState() => _SearchAppBarState();
 }
 
 class _SearchAppBarState extends State<SearchAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      brightness: Brightness.dark,
       automaticallyImplyLeading: false,
       backgroundColor: Colors.black,
       titleSpacing: 0,
       title: Container(
-        margin: EdgeInsets.only(left: 16, right: 10),
+        margin: const EdgeInsets.only(left: 16, right: 10),
         height: 40,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.2),
+          color: Colors.white.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(5),
         ),
         child: TextField(
           controller: widget.searchInputController,
           onChanged: (value) {
-            print(widget.searchInputController.text);
             setState(() {});
           },
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
-          maxLines: 1,
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
           decoration: InputDecoration(
             prefixIcon: Visibility(
-              visible: (widget.searchInputController.text.isEmpty) ? true : false,
+              visible:
+                  (widget.searchInputController.text.isEmpty) ? true : false,
               child: Container(
-                margin: EdgeInsets.only(left: 10, right: 12),
-                child: SvgPicture.asset('assets/icons/Search.svg', color: Colors.white),
+                margin: const EdgeInsets.only(left: 10, right: 12),
+                child: SvgPicture.asset(
+                  'assets/icons/Search.svg',
+                  colorFilter:
+                      const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                ),
               ),
             ),
-            prefixIconConstraints: BoxConstraints(maxHeight: 20),
+            prefixIconConstraints: const BoxConstraints(maxHeight: 20),
             hintText: 'Search...',
-            hintStyle: TextStyle(color: Colors.white.withOpacity(0.2)),
-            contentPadding: EdgeInsets.only(left: 16, bottom: 9),
+            hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.2)),
+            contentPadding: const EdgeInsets.only(left: 16, bottom: 9),
             focusColor: Colors.white,
           ),
         ),
@@ -59,21 +66,19 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('cancel'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.black,
-                  textStyle: TextStyle(fontWeight: FontWeight.w400),
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  textStyle: const TextStyle(fontWeight: FontWeight.w400),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                 ),
+                child: const Text('cancel'),
               )
             : ElevatedButton(
                 onPressed: widget.searchPressed,
-                child: Text('Search'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.black,
-                  textStyle: TextStyle(fontWeight: FontWeight.w400),
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  textStyle: const TextStyle(fontWeight: FontWeight.w400),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                 ),
+                child: const Text('Search'),
               ),
       ],
     );

@@ -6,8 +6,10 @@ import 'package:readky/view/screens/auth/register_page.dart';
 import 'package:readky/view/widgets/switchable_button.dart';
 
 class WelcomePage extends StatefulWidget {
+  const WelcomePage({super.key});
+
   @override
-  _WelcomePageState createState() => _WelcomePageState();
+  State<WelcomePage> createState() => _WelcomePageState();
 }
 
 class _WelcomePageState extends State<WelcomePage> {
@@ -16,15 +18,17 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(vertical: 30),
+        padding: const EdgeInsets.symmetric(vertical: 30),
         width: MediaQuery.of(context).size.width,
         child: SwitchableButton(
-          backgroundColor: Colors.white.withOpacity(0.1),
+          backgroundColor: Colors.white.withValues(alpha: 0.1),
           onTapLeft: () {
-            Navigator.of(context).push(SlidePageRoute(child: RegisterPage()));
+            Navigator.of(context)
+                .push(SlidePageRoute(child: const RegisterPage()));
           },
           onTapRight: () {
-            Navigator.of(context).push(SlidePageRoute(child: LoginPage()));
+            Navigator.of(context)
+                .push(SlidePageRoute(child: const LoginPage()));
           },
         ),
       ),
@@ -49,7 +53,7 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height * (48 / 100),
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 100,
                   child: Column(
@@ -59,17 +63,22 @@ class _WelcomePageState extends State<WelcomePage> {
                         width: MediaQuery.of(context).size.width * (3 / 10),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 18),
-                        child: Text(
+                        margin: const EdgeInsets.only(top: 18),
+                        child: const Text(
                           'Free Flutter News App \nStarter Template',
-                          style: TextStyle(color: Colors.white, height: 150 / 100, fontWeight: FontWeight.w500, fontSize: 16),
+                          style: TextStyle(
+                            color: Colors.white,
+                            height: 150 / 100,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
                           textAlign: TextAlign.center,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

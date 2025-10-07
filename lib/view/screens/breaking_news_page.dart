@@ -5,8 +5,10 @@ import 'package:readky/view/widgets/custom_app_bar.dart';
 import 'package:readky/view/widgets/news_tile.dart';
 
 class BreakingNewsPage extends StatefulWidget {
+  const BreakingNewsPage({super.key});
+
   @override
-  _BreakingNewsPageState createState() => _BreakingNewsPageState();
+  State<BreakingNewsPage> createState() => _BreakingNewsPageState();
 }
 
 class _BreakingNewsPageState extends State<BreakingNewsPage> {
@@ -15,14 +17,14 @@ class _BreakingNewsPageState extends State<BreakingNewsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        leadingIcon: Icon(
+        leadingIcon: const Icon(
           Icons.arrow_back_ios,
           color: Colors.white,
         ),
         onPressedLeading: () {
           Navigator.of(context).pop();
         },
-        title: Text(
+        title: const Text(
           'Breaking News',
           style: TextStyle(
             fontWeight: FontWeight.w400,
@@ -33,16 +35,15 @@ class _BreakingNewsPageState extends State<BreakingNewsPage> {
       body: ListView(
         shrinkWrap: true,
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              scrollDirection: Axis.vertical,
-              physics: NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: allCategoriesNews.length,
               separatorBuilder: (context, index) {
-                return SizedBox(height: 16);
+                return const SizedBox(height: 16);
               },
               itemBuilder: (context, index) {
                 return NewsTile(data: allCategoriesNews[index]);

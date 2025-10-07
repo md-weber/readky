@@ -4,14 +4,14 @@ import 'package:readky/model/core/news.dart';
 import 'package:readky/view/widgets/custom_app_bar.dart';
 
 class NewsDetailPage extends StatelessWidget {
+  const NewsDetailPage({super.key, required this.data});
   final News data;
-  NewsDetailPage({@required this.data});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         leadingIcon: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -23,58 +23,75 @@ class NewsDetailPage extends StatelessWidget {
             onPressed: () {},
             icon: Icon(
               Icons.share_outlined,
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.white.withValues(alpha: 0.5),
             ),
           ),
           IconButton(
             onPressed: () {},
             icon: SvgPicture.asset(
               'assets/icons/Bookmark.svg',
-              color: Colors.white.withOpacity(0.5),
+              colorFilter: ColorFilter.mode(
+                Colors.white.withValues(alpha: 0.5),
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ],
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
             height: 240,
             decoration: BoxDecoration(
               color: Colors.grey,
-              image: DecorationImage(
-                image: AssetImage(data.photo),
-                fit: BoxFit.cover,
-              ),
+              image: data.photo != null
+                  ? DecorationImage(
+                      image: AssetImage(data.photo!),
+                      fit: BoxFit.cover,
+                    )
+                  : null,
             ),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '${data.date} | ${data.author}.',
-                  style: TextStyle(color: Colors.black.withOpacity(0.6), fontSize: 12),
+                  style: TextStyle(
+                    color: Colors.black.withValues(alpha: 0.6),
+                    fontSize: 12,
+                  ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 12, bottom: 20),
+                  margin: const EdgeInsets.only(top: 12, bottom: 20),
                   child: Text(
-                    data.title,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, height: 150 / 100, fontFamily: 'inter'),
+                    data.title ?? 'No Title',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      height: 150 / 100,
+                      fontFamily: 'inter',
+                    ),
                   ),
                 ),
                 Text(
-                  data.description,
-                  style: TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 14, height: 150 / 100, fontWeight: FontWeight.w500),
+                  data.description ?? 'No Description',
+                  style: TextStyle(
+                    color: Colors.black.withValues(alpha: 0.8),
+                    fontSize: 14,
+                    height: 150 / 100,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

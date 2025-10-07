@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:readky/view/screens/bookmarks_page.dart';
-import 'package:readky/view/screens/home_page.dart';
 import 'package:readky/view/screens/discover_page.dart';
+import 'package:readky/view/screens/home_page.dart';
 import 'package:readky/view/widgets/custom_bottom_navigation_bar.dart';
 
 class PageSwitchWithAnimation extends StatefulWidget {
+  const PageSwitchWithAnimation({super.key});
+
   @override
-  _PageSwitchWithAnimationState createState() => _PageSwitchWithAnimationState();
+  State<PageSwitchWithAnimation> createState() =>
+      _PageSwitchWithAnimationState();
 }
 
 class _PageSwitchWithAnimationState extends State<PageSwitchWithAnimation> {
   int _selectedIndex = 0;
-  PageController _pageSwitchController;
+  late PageController _pageSwitchController;
 
   @override
   void initState() {
@@ -19,10 +22,14 @@ class _PageSwitchWithAnimationState extends State<PageSwitchWithAnimation> {
     _pageSwitchController = PageController();
   }
 
-  _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      _pageSwitchController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+      _pageSwitchController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeOut,
+      );
     });
   }
 
@@ -36,7 +43,7 @@ class _PageSwitchWithAnimationState extends State<PageSwitchWithAnimation> {
             _selectedIndex = index;
           });
         },
-        children: [
+        children: const [
           HomePage(),
           DiscoverPage(),
           BookmarkPage(),

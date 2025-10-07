@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({
+    super.key,
+    required this.title,
+    required this.leadingIcon,
+    required this.onPressedLeading,
+    this.actions,
+    this.profilePicture,
+    this.onPressedProfilePicture,
+  });
   final Widget title;
-  final Widget leadingIcon;
-  final Function onPressedLeading;
-  final List<Widget> actions;
-  final Widget profilePicture;
-  final Function onPressedProfilePicture;
+  final Widget? leadingIcon;
+  final VoidCallback? onPressedLeading;
+  final List<Widget>? actions;
+  final Widget? profilePicture;
 
-  CustomAppBar({this.title, this.leadingIcon, this.onPressedLeading, this.actions, this.profilePicture, this.onPressedProfilePicture});
+  final VoidCallback? onPressedProfilePicture;
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
@@ -16,22 +24,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      brightness: Brightness.dark,
       backgroundColor: Colors.black,
       elevation: 0.0,
       centerTitle: true,
       title: title,
       leading: (leadingIcon != null)
           ? IconButton(
-              icon: leadingIcon,
+              icon: leadingIcon!,
               onPressed: onPressedLeading,
             )
           : null,
-      actions: (profilePicture != null) ? [_buildProfilePicture(profilePicture)] : actions,
+      actions: (profilePicture != null)
+          ? [_buildProfilePicture(profilePicture!)]
+          : actions,
     );
   }
 
-  _buildProfilePicture(Widget profilePicture) {
+  Padding _buildProfilePicture(Widget profilePicture) {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: InkWell(

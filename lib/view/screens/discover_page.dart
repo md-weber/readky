@@ -9,16 +9,19 @@ import 'package:readky/view/screens/search_page.dart';
 import 'package:readky/view/widgets/custom_app_bar.dart';
 import 'package:readky/view/widgets/featured_video_news_card.dart';
 import 'package:readky/view/widgets/news_tile.dart';
-import 'package:scroll_indicator/scroll_indicator.dart';
 
 class DiscoverPage extends StatefulWidget {
+  const DiscoverPage({super.key});
+
   @override
-  _DiscoverPageState createState() => _DiscoverPageState();
+  State<DiscoverPage> createState() => _DiscoverPageState();
 }
 
-class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMixin {
-  ScrollController _featuredVideoNewsCardScrollController = ScrollController();
-  TabController _categoryTabController;
+class _DiscoverPageState extends State<DiscoverPage>
+    with TickerProviderStateMixin {
+  final ScrollController _featuredVideoNewsCardScrollController =
+      ScrollController();
+  late TabController _categoryTabController;
   List<VideoNews> featuredVideoNews = VideoNewsHelper.featuredVideoNews;
   List<News> allCategoriesNews = NewsHelper.allCategoriesNews;
 
@@ -28,7 +31,7 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
     _categoryTabController = TabController(length: 7, vsync: this);
   }
 
-  _changeTab(index) {
+  void _changeTab(int index) {
     setState(() {
       _categoryTabController.index = index;
     });
@@ -46,12 +49,12 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
       appBar: CustomAppBar(
         leadingIcon: SvgPicture.asset(
           'assets/icons/Menu.svg',
-          color: Colors.white,
+          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
         ),
         onPressedLeading: () {
           Scaffold.of(context).openDrawer();
         },
-        title: Text(
+        title: const Text(
           'Discover',
           style: TextStyle(
             fontWeight: FontWeight.w400,
@@ -61,40 +64,45 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(SlidePageRoute(child: SearchPage(), direction: AxisDirection.up));
+              Navigator.of(context).push(
+                SlidePageRoute(
+                  child: const SearchPage(),
+                  direction: AxisDirection.up,
+                ),
+              );
             },
             icon: SvgPicture.asset(
               'assets/icons/Search.svg',
-              color: Colors.white,
+              colorFilter:
+                  const ColorFilter.mode(Colors.white, BlendMode.srcIn),
             ),
           ),
         ],
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           // Section 1 - Featured News Video
           Container(
-            padding: EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             width: MediaQuery.of(context).size.width,
             height: 245,
             color: Colors.black,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(bottom: 20),
+                  margin: const EdgeInsets.only(bottom: 20),
                   height: 170,
                   child: ListView.separated(
                     controller: _featuredVideoNewsCardScrollController,
-                    padding: EdgeInsets.only(left: 16),
+                    padding: const EdgeInsets.only(left: 16),
                     scrollDirection: Axis.horizontal,
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemCount: featuredVideoNews.length,
                     separatorBuilder: (context, index) {
-                      return SizedBox(
+                      return const SizedBox(
                         width: 10,
                       );
                     },
@@ -106,51 +114,50 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Video News',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.6),
+                          color: Colors.white.withValues(alpha: 0.6),
                         ),
-                      ),
-                      ScrollIndicator(
-                        scrollController: _featuredVideoNewsCardScrollController,
-                        height: 6,
-                        width: 30,
-                        indicatorWidth: 20,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white.withOpacity(0.3)),
-                        indicatorDecoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
 
           // Section 2 - News Based on Category
           Container(
-            padding: EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             width: MediaQuery.of(context).size.width,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.only(bottom: 8),
                   child: TabBar(
                     isScrollable: true,
                     controller: _categoryTabController,
-                    labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'inter'),
+                    labelStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'inter',
+                    ),
                     labelColor: Colors.black,
-                    unselectedLabelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'inter'),
-                    unselectedLabelColor: Colors.black.withOpacity(0.6),
+                    unselectedLabelStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'inter',
+                    ),
+                    unselectedLabelColor: Colors.black.withValues(alpha: 0.6),
                     indicatorColor: Colors.transparent,
                     onTap: _changeTab,
-                    tabs: [
+                    tabs: const [
                       Tab(
                         text: 'All categories',
                       ),
@@ -178,16 +185,15 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
                 IndexedStack(
                   index: _categoryTabController.index,
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: ListView.separated(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        scrollDirection: Axis.vertical,
-                        physics: NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: allCategoriesNews.length,
                         separatorBuilder: (context, index) {
-                          return SizedBox(height: 16);
+                          return const SizedBox(height: 16);
                         },
                         itemBuilder: (context, index) {
                           return NewsTile(data: allCategoriesNews[index]);
@@ -195,28 +201,52 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
                       ),
                     ),
                     SizedBox(
-                      child: Center(child: Text('category page ${_categoryTabController.index}')),
+                      child: Center(
+                        child: Text(
+                          'category page ${_categoryTabController.index}',
+                        ),
+                      ),
                     ),
                     SizedBox(
-                      child: Center(child: Text('category page ${_categoryTabController.index}')),
+                      child: Center(
+                        child: Text(
+                          'category page ${_categoryTabController.index}',
+                        ),
+                      ),
                     ),
                     SizedBox(
-                      child: Center(child: Text('category page ${_categoryTabController.index}')),
+                      child: Center(
+                        child: Text(
+                          'category page ${_categoryTabController.index}',
+                        ),
+                      ),
                     ),
                     SizedBox(
-                      child: Center(child: Text('category page ${_categoryTabController.index}')),
+                      child: Center(
+                        child: Text(
+                          'category page ${_categoryTabController.index}',
+                        ),
+                      ),
                     ),
                     SizedBox(
-                      child: Center(child: Text('category page ${_categoryTabController.index}')),
+                      child: Center(
+                        child: Text(
+                          'category page ${_categoryTabController.index}',
+                        ),
+                      ),
                     ),
                     SizedBox(
-                      child: Center(child: Text('category page ${_categoryTabController.index}')),
+                      child: Center(
+                        child: Text(
+                          'category page ${_categoryTabController.index}',
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,7 +1,8 @@
 import 'package:readky/model/core/category.dart';
 
 class CategoryHelper {
-  static List<Category> categoryData = categoryRawData.map((data) => Category(name: data['name'])).toList();
+  static List<Category> categoryData =
+      categoryRawData.map((data) => Category(name: data['name'])).toList();
 }
 
 var categoryRawData = [

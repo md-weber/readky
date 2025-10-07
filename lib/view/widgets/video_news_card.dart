@@ -4,10 +4,10 @@ import 'package:readky/view/utils/app_theme.dart';
 import 'package:readky/view/widgets/tag_card.dart';
 
 class VideoNewsCard extends StatelessWidget {
-  static final double itemHeight = 400;
-  static final double itemWidth = 300;
+  const VideoNewsCard({super.key, required this.data});
+  static const double itemHeight = 400;
+  static const double itemWidth = 300;
   final VideoNews data;
-  VideoNewsCard({@required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,14 @@ class VideoNewsCard extends StatelessWidget {
       width: itemWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        image: DecorationImage(image: AssetImage(data.thumbnail), fit: BoxFit.cover),
+        image: DecorationImage(
+          image: AssetImage(data.thumbnail ?? ''),
+          fit: BoxFit.cover,
+        ),
         color: Colors.black,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 14),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 14),
         alignment: Alignment.bottomLeft,
         width: itemHeight,
         height: itemWidth,
@@ -29,11 +32,16 @@ class VideoNewsCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TagCard(tagName: 'Video'),
-            SizedBox(height: 8),
+            const TagCard(tagName: 'Video'),
+            const SizedBox(height: 8),
             Text(
-              data.title,
-              style: TextStyle(color: Colors.white, fontFamily: 'inter', fontSize: 16, height: 150 / 100),
+              data.title ?? 'No title',
+              style: const TextStyle(
+                color: Colors.white,
+                fontFamily: 'inter',
+                fontSize: 16,
+                height: 150 / 100,
+              ),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),

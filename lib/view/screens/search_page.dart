@@ -7,8 +7,10 @@ import 'package:readky/view/widgets/news_tile.dart';
 import 'package:readky/view/widgets/search_app_bar.dart';
 
 class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
+
   @override
-  _SearchPageState createState() => _SearchPageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
@@ -24,7 +26,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(searchInputController.text);
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -40,12 +41,12 @@ class _SearchPageState extends State<SearchPage> {
               height: 60,
               color: Colors.black,
               child: ListView.separated(
-                padding: EdgeInsets.only(left: 16),
+                padding: const EdgeInsets.only(left: 16),
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemCount: category.length,
                 separatorBuilder: (context, index) {
-                  return SizedBox(width: 16);
+                  return const SizedBox(width: 16);
                 },
                 itemBuilder: (context, index) {
                   return Container(
@@ -53,31 +54,37 @@ class _SearchPageState extends State<SearchPage> {
                     child: OutlinedButton(
                       onPressed: () {
                         setState(() {
-                          searchInputController.text = category[index].name;
+                          searchInputController.text =
+                              category[index].name ?? 'Name is missing';
                         });
                       },
-                      child: Text(
-                        category[index].name,
-                        style: TextStyle(color: Colors.white.withOpacity(0.7), fontWeight: FontWeight.w400),
-                      ),
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Color(0xFF313131), width: 1),
+                        side: const BorderSide(
+                          color: Color(0xFF313131),
+                        ),
+                      ),
+                      child: Text(
+                        category[index].name ?? 'Name is missing',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.7),
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   );
                 },
               ),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ListView.separated(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: searchData.length,
                 separatorBuilder: (context, index) {
-                  return SizedBox(height: 16);
+                  return const SizedBox(height: 16);
                 },
                 itemBuilder: (context, index) {
                   return NewsTile(data: searchData[index]);

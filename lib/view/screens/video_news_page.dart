@@ -6,13 +6,16 @@ import 'package:readky/view/widgets/video_news_card.dart';
 import 'package:readky/view/widgets/video_news_filter_sheet.dart';
 
 class VideoNewsPage extends StatefulWidget {
+  const VideoNewsPage({super.key});
+
   @override
-  _VideoNewsPageState createState() => _VideoNewsPageState();
+  State<VideoNewsPage> createState() => _VideoNewsPageState();
 }
 
-class _VideoNewsPageState extends State<VideoNewsPage> with TickerProviderStateMixin {
+class _VideoNewsPageState extends State<VideoNewsPage>
+    with TickerProviderStateMixin {
   List<VideoNews> videoNews = VideoNewsHelper.videoNews;
-  TabController _categoryTabController;
+  late TabController _categoryTabController;
 
   @override
   void initState() {
@@ -20,7 +23,7 @@ class _VideoNewsPageState extends State<VideoNewsPage> with TickerProviderStateM
     _categoryTabController = TabController(length: 7, vsync: this);
   }
 
-  _changeTab(index) {
+  void _changeTab(int index) {
     setState(() {
       _categoryTabController.index = index;
     });
@@ -32,9 +35,9 @@ class _VideoNewsPageState extends State<VideoNewsPage> with TickerProviderStateM
     _categoryTabController.dispose();
   }
 
-  showFilter() {
+  void showFilter() {
     showModalBottomSheet(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(10),
         ),
@@ -43,7 +46,7 @@ class _VideoNewsPageState extends State<VideoNewsPage> with TickerProviderStateM
       backgroundColor: Colors.transparent,
       context: context,
       builder: (context) {
-        return VideoNewsFilterSheet();
+        return const VideoNewsFilterSheet();
       },
     );
   }
@@ -52,14 +55,14 @@ class _VideoNewsPageState extends State<VideoNewsPage> with TickerProviderStateM
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        leadingIcon: Icon(
+        leadingIcon: const Icon(
           Icons.arrow_back_ios,
           color: Colors.white,
         ),
         onPressedLeading: () {
           Navigator.of(context).pop();
         },
-        title: Text(
+        title: const Text(
           'Video News',
           style: TextStyle(
             fontWeight: FontWeight.w400,
@@ -71,29 +74,36 @@ class _VideoNewsPageState extends State<VideoNewsPage> with TickerProviderStateM
             onPressed: () {
               showFilter();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.sort_rounded,
               color: Colors.white,
             ),
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TabBar(
               isScrollable: true,
               controller: _categoryTabController,
-              labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'inter'),
+              labelStyle: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'inter',
+              ),
               labelColor: Colors.black,
-              unselectedLabelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'inter'),
-              unselectedLabelColor: Colors.black.withOpacity(0.6),
+              unselectedLabelStyle: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'inter',
+              ),
+              unselectedLabelColor: Colors.black.withValues(alpha: 0.6),
               indicatorColor: Colors.transparent,
               onTap: _changeTab,
-              tabs: [
+              tabs: const [
                 Tab(
                   text: 'All categories',
                 ),
@@ -123,9 +133,11 @@ class _VideoNewsPageState extends State<VideoNewsPage> with TickerProviderStateM
                 GridView.count(
                   crossAxisCount: 2,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  childAspectRatio: VideoNewsCard.itemWidth / VideoNewsCard.itemHeight,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  childAspectRatio:
+                      VideoNewsCard.itemWidth / VideoNewsCard.itemHeight,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 10,
                   children: List.generate(videoNews.length, (index) {
@@ -135,22 +147,46 @@ class _VideoNewsPageState extends State<VideoNewsPage> with TickerProviderStateM
                   }),
                 ),
                 SizedBox(
-                  child: Center(child: Text('category page ${_categoryTabController.index}')),
+                  child: Center(
+                    child: Text(
+                      'category page ${_categoryTabController.index}',
+                    ),
+                  ),
                 ),
                 SizedBox(
-                  child: Center(child: Text('category page ${_categoryTabController.index}')),
+                  child: Center(
+                    child: Text(
+                      'category page ${_categoryTabController.index}',
+                    ),
+                  ),
                 ),
                 SizedBox(
-                  child: Center(child: Text('category page ${_categoryTabController.index}')),
+                  child: Center(
+                    child: Text(
+                      'category page ${_categoryTabController.index}',
+                    ),
+                  ),
                 ),
                 SizedBox(
-                  child: Center(child: Text('category page ${_categoryTabController.index}')),
+                  child: Center(
+                    child: Text(
+                      'category page ${_categoryTabController.index}',
+                    ),
+                  ),
                 ),
                 SizedBox(
-                  child: Center(child: Text('category page ${_categoryTabController.index}')),
+                  child: Center(
+                    child: Text(
+                      'category page ${_categoryTabController.index}',
+                    ),
+                  ),
                 ),
                 SizedBox(
-                  child: Center(child: Text('category page ${_categoryTabController.index}')),
+                  child: Center(
+                    child: Text(
+                      'category page ${_categoryTabController.index}',
+                    ),
+                  ),
                 ),
               ],
             ),

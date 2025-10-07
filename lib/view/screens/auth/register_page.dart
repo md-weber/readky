@@ -5,8 +5,10 @@ import 'package:readky/view/screens/page_switch.dart';
 import 'package:readky/view/widgets/custom_text_field.dart';
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
@@ -15,12 +17,11 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        brightness: Brightness.dark,
         backgroundColor: Colors.black,
         title: SvgPicture.asset('assets/icons/appname.svg'),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -33,25 +34,30 @@ class _RegisterPageState extends State<RegisterPage> {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: ListView(
           shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
             // Section 1 - Welcome Title
             Container(
-              margin: EdgeInsets.only(top: 30, bottom: 40),
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.only(top: 30, bottom: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               width: MediaQuery.of(context).size.width,
-              child: Text(
+              child: const Text(
                 'Hello ! Register to get started 😁',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 28, height: 150 / 100, fontFamily: 'inter'),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 28,
+                  height: 150 / 100,
+                  fontFamily: 'inter',
+                ),
               ),
             ),
             // Section 2 - Form
             Container(
-              margin: EdgeInsets.only(bottom: 24),
+              margin: const EdgeInsets.only(bottom: 24),
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomTextField(
@@ -77,39 +83,41 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             // Section 3 - Register Button
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               width: MediaQuery.of(context).size.width,
               height: 70,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(SlidePageRoute(child: PageSwitch()));
+                  Navigator.of(context)
+                      .push(SlidePageRoute(child: const PageSwitch()));
                 },
-                child: Text(
-                  'Register',
-                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
-                ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  'Register',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
                   ),
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 16),
+              margin: const EdgeInsets.only(top: 16),
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.topCenter,
               child: TextButton(
                 onPressed: () {},
-                child: Text('Already have an account? Login'),
                 style: TextButton.styleFrom(
-                  primary: Colors.white.withOpacity(0.65),
-                  textStyle: TextStyle(fontWeight: FontWeight.w400),
+                  textStyle: const TextStyle(fontWeight: FontWeight.w400),
                 ),
+                child: const Text('Already have an account? Login'),
               ),
-            )
+            ),
           ],
         ),
       ),

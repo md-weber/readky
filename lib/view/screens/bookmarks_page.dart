@@ -11,12 +11,15 @@ import 'package:readky/view/widgets/news_tile.dart';
 import 'package:readky/view/widgets/video_news_card.dart';
 
 class BookmarkPage extends StatefulWidget {
+  const BookmarkPage({super.key});
+
   @override
-  _BookmarkPageState createState() => _BookmarkPageState();
+  State<BookmarkPage> createState() => _BookmarkPageState();
 }
 
-class _BookmarkPageState extends State<BookmarkPage> with TickerProviderStateMixin {
-  TabController _bookmarkTabController;
+class _BookmarkPageState extends State<BookmarkPage>
+    with TickerProviderStateMixin {
+  late TabController _bookmarkTabController;
   List<News> news = NewsHelper.bookmarkedNews;
 
   List<VideoNews> videoNews = VideoNewsHelper.bookmarkedVideoNews;
@@ -34,12 +37,11 @@ class _BookmarkPageState extends State<BookmarkPage> with TickerProviderStateMix
       appBar: CustomAppBar(
         leadingIcon: SvgPicture.asset(
           'assets/icons/Menu.svg',
-          color: Colors.white,
         ),
         onPressedLeading: () {
           Scaffold.of(context).openDrawer();
         },
-        title: Text(
+        title: const Text(
           'Bookmarks',
           style: TextStyle(
             fontWeight: FontWeight.w400,
@@ -49,37 +51,44 @@ class _BookmarkPageState extends State<BookmarkPage> with TickerProviderStateMix
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(SlidePageRoute(child: SearchPage(), direction: AxisDirection.up));
+              Navigator.of(context).push(
+                SlidePageRoute(
+                  child: const SearchPage(),
+                  direction: AxisDirection.up,
+                ),
+              );
             },
             icon: SvgPicture.asset(
               'assets/icons/Search.svg',
-              color: Colors.white,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ],
       ),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TabBar(
                 controller: _bookmarkTabController,
                 labelColor: Colors.black,
                 indicatorColor: Colors.black,
-                labelStyle: TextStyle(fontSize: 16),
-                unselectedLabelStyle: TextStyle(fontSize: 16),
-                labelPadding: EdgeInsets.symmetric(vertical: 8),
+                labelStyle: const TextStyle(fontSize: 16),
+                unselectedLabelStyle: const TextStyle(fontSize: 16),
+                labelPadding: const EdgeInsets.symmetric(vertical: 8),
                 indicatorWeight: 1.5,
                 onTap: (index) {
                   setState(() {
                     _bookmarkTabController.index = index;
                   });
                 },
-                tabs: [
+                tabs: const [
                   Tab(
                     text: 'News',
                   ),
@@ -92,16 +101,15 @@ class _BookmarkPageState extends State<BookmarkPage> with TickerProviderStateMix
                 index: _bookmarkTabController.index,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     width: MediaQuery.of(context).size.width,
                     child: ListView.separated(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      scrollDirection: Axis.vertical,
-                      physics: NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: news.length,
                       separatorBuilder: (context, index) {
-                        return SizedBox(height: 16);
+                        return const SizedBox(height: 16);
                       },
                       itemBuilder: (context, index) {
                         return NewsTile(data: news[index]);
@@ -110,10 +118,14 @@ class _BookmarkPageState extends State<BookmarkPage> with TickerProviderStateMix
                   ),
                   GridView.count(
                     crossAxisCount: 2,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                    childAspectRatio: VideoNewsCard.itemWidth / VideoNewsCard.itemHeight,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 20,
+                    ),
+                    childAspectRatio:
+                        VideoNewsCard.itemWidth / VideoNewsCard.itemHeight,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 10,
                     children: List.generate(videoNews.length, (index) {
@@ -123,7 +135,7 @@ class _BookmarkPageState extends State<BookmarkPage> with TickerProviderStateMix
                     }),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ],

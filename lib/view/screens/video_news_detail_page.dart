@@ -1,39 +1,38 @@
-import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:readky/model/core/video_news.dart';
 import 'package:readky/view/widgets/custom_app_bar.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoNewsDetailPage extends StatefulWidget {
+  const VideoNewsDetailPage({super.key, required this.data});
   final VideoNews data;
-  VideoNewsDetailPage({@required this.data});
   @override
-  _VideoNewsDetailPageState createState() => _VideoNewsDetailPageState();
+  State<VideoNewsDetailPage> createState() => _VideoNewsDetailPageState();
 }
 
 class _VideoNewsDetailPageState extends State<VideoNewsDetailPage> {
-  VideoPlayerController _videoPlayerController;
-  ChewieController _chewieController;
+  late VideoPlayerController _videoPlayerController;
+  late ChewieController _chewieController;
 
   @override
   void initState() {
     super.initState();
-    print(widget.data);
-    _videoPlayerController = VideoPlayerController.network(widget.data.video);
+    _videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(widget.data.video!));
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       aspectRatio: 5 / 8,
       autoInitialize: true,
       autoPlay: true,
       looping: true,
-      allowMuting: true,
       showOptions: false,
       errorBuilder: (context, errorMessage) {
         return Center(
           child: Text(
             errorMessage,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         );
       },
@@ -52,7 +51,7 @@ class _VideoNewsDetailPageState extends State<VideoNewsDetailPage> {
       backgroundColor: Colors.black,
       appBar: CustomAppBar(
         leadingIcon: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {
             dispose();
             Navigator.of(context).pop();
@@ -65,7 +64,7 @@ class _VideoNewsDetailPageState extends State<VideoNewsDetailPage> {
             onPressed: () {},
             icon: Icon(
               Icons.share_outlined,
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.white.withValues(alpha: 0.5),
             ),
           ),
         ],
